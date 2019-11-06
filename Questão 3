@@ -1,0 +1,51 @@
+#include <map>
+#include <iostream>
+
+using namespace std;
+
+bool proc(string& sobrenome, map<string, string> a){
+
+    while(a.find(sobrenome) != a.end()){
+        
+        char resp;
+
+        cout << "Sobrenome já consta!" << endl;
+        cout << "Sobrescrever sobrenome [S/N]? ";
+        cin >> resp;
+        cin.ignore();
+
+        if(resp == 'S' or resp == 's'){
+
+        cout << "Informe novamente o sobrenome: ";
+        getline(cin, sobrenome);
+        }
+        else return false;
+    }
+        
+    return true;
+}
+
+int main(){
+
+    map<string, string> a;
+    string nome, sobrenome;
+
+    while(nome != "sair"){
+        cout << "Informe o nome (sair p/ encerrar): " << endl;
+        getline(cin, nome);
+
+        if(nome == "sair") break;
+
+        cout << "Informe o sobrenome: " << endl;
+        getline(cin, sobrenome);
+
+        if(proc(sobrenome, a)) a[sobrenome] = nome;
+    }
+
+    for(auto show : a){
+
+        cout << show.first << ", " << show.second << endl; 
+    }
+
+    return 0;
+}
